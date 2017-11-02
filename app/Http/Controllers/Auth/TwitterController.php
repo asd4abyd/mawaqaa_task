@@ -16,22 +16,22 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Socialite;
 
-class FacebookController extends LoginController
+class TwitterController extends LoginController
 {
     use AuthenticatesUsers;
 
     /**
-     * Redirect the user to the GitHub authentication page.
+     * Redirect the user to the Twitter authentication page.
      *
      * @return Response
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('twitter')->redirect();
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from Twitter.
      *
      * @param Request $request
      *
@@ -39,12 +39,12 @@ class FacebookController extends LoginController
      */
     public function handleProviderCallback(Request $request)
     {
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('twitter')->user();
 
         /** @var User $callUser */
         $callUser = User::updateOrCreate(['email' => $user->getEmail()],[
             'first_name' => $user->getName(),
-            'provider' => User::PROVIDER_FACEBOOK,
+            'provider' => User::PROVIDER_TWITTER,
             'updated_at' => time(),
         ]);
 

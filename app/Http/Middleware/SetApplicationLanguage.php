@@ -26,7 +26,7 @@ class SetApplicationLanguage {
      */
     public function handle($request, Closure $next)
     {
-        App::setLocale(Auth()->user->langu ? session('lang') : Config::get('app.locale'));
+        App::setLocale(optional(Auth()->user())->language ?: Config::get('app.locale'));
         return $next($request);
 
     }

@@ -15,6 +15,12 @@ class CreateShopLocationsTable extends Migration
     {
         Schema::create('shop_locations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('paci')->nullable();
+            $table->string('area')->nullable();
+            $table->string('location')->nullable();
+            $table->string('map')->nullable(); // latitudes, longitude
+            $table->tinyInteger('is_active')->defualt(1);
             $table->timestamps();
         });
     }

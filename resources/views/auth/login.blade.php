@@ -61,6 +61,12 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="row">
+                        <div class="col-md-4"><a href="{{ route('login.facebook') }}" class="btn btn-block btn-primary">{{ trans('login.facebook') }}</a></div>
+                        <div class="col-md-4"><a href="{{ route('login.google') }}" class="btn btn-block btn-danger">{{ trans('login.google') }}</a></div>
+                        <div class="col-md-4"><a href="{{ route('login.twitter') }}" class="btn btn-block btn-success">{{ trans('login.twitter') }}</a></div>
+                    </div>
                 </div>
             </div>
         </div>
