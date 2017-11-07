@@ -3,12 +3,11 @@
 namespace App\Providers;
 
 use App\Repository\Eloquent\Shop;
-use App\Repository\Eloquent\UserLocation;
 use App\Repository\ShopInterface;
-use App\Repository\UserLocationInterface;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class AppRepositoryProvider extends ServiceProvider
+class BladeServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -17,7 +16,10 @@ class AppRepositoryProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::if('hasShop', function() {
+            return boolval(shop()->getOneByUserId());
+
+        });
     }
 
     /**
@@ -27,7 +29,7 @@ class AppRepositoryProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserLocationInterface::class, UserLocation::class);
-        $this->app->bind(ShopInterface::class, Shop::class);
+        //
+
     }
 }

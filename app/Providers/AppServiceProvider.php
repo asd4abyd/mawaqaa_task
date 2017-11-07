@@ -14,9 +14,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \App\User::creating(function($user){
+        User::creating(function($user){
             $user->created_at=time();
             $user->type = User::TYPE_USER;
+         });
+
+
+
+        \App\Permission::creating(function($permission){
+            $permission->level=User::TYPE_USER;
+        });
+
+        \App\UserLocations::creating(function($location){
+            $location->created_at=time();
+         });
+
+        \App\Shops::creating(function($shop){
+            $shop->user_id=auth()->user()->id;
+            $shop->created_at=time();
+            $shop->is_active=1;
          });
     }
 

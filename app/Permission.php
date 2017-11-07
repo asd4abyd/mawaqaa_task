@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Permission extends Model
 {
+    public $timestamps = false;
+    protected $fillable= ['title'];
+
     public function user()
     {
         return $this->hasMany('App\UserPermission');

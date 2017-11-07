@@ -1,21 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 /** Socialite controllers */
 
 Route::group(['prefix' => 'login'], function() {
@@ -34,7 +18,7 @@ Route::group(['prefix' => 'login'], function() {
 });
 
 
-
+/** Auth and user Routes */
 Auth::routes();
 
 Route::group(['prefix' => 'user'], function() {
@@ -47,13 +31,29 @@ Route::group(['prefix' => 'user'], function() {
         Route::get('/', 'Auth\UserLocationController@index')->name('user.location');
 
         Route::get('/add_new', 'Auth\UserLocationController@create')->name('user.location.add_new');
-        Route::post('/add_new', 'Auth\UserLocationController@store')->name('user.location.add_new');
+        Route::post('/add_new', 'Auth\UserLocationController@store');
 
         Route::get('/edit/{id}', 'Auth\UserLocationController@show')->name('user.location.edit');
         Route::post('/edit/{id}', 'Auth\UserLocationController@update');
     });
+});
+
+Route::group(['prefix' => 'shop'], function() {
+
+    Route::get('/create', 'Shop\ShopCRUDController@create')->name('shop.create');
+    Route::post('/create', 'Shop\ShopCRUDController@store');
+
+
+    Route::get('/edit', 'Shop\ShopCRUDController@edit')->name('shop.edit');
+    Route::post('/edit', 'Shop\ShopCRUDController@update');
 
 
 });
 
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+

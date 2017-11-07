@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\ProfileRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
 
     public function __construct()
     {
@@ -31,17 +31,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function profileUpdate(Request $request)
+    public function profileUpdate(ProfileRequest $request)
     {
-        $a = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'string|max:255',
-            'country' => 'required|string|min:2',
-            'phone' => 'required|string|min:6',
-        ]);
 
 
-        auth()->user()->update($a);
+        auth()->user()->update($request->all());
 
         return redirect()->route('user.profile', ['done'=>1]);
     }

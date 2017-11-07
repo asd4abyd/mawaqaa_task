@@ -10,8 +10,8 @@ namespace App\Http\Controllers\Auth;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\UserLocationRequest;
 use App\Repository\UserLocationInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class UserLocationController extends Controller
@@ -37,17 +37,9 @@ class UserLocationController extends Controller
         return view('auth.addLocation', ['location'=> []]);
     }
 
-    public function store(Request $request) {
+    public function store(UserLocationRequest $request) {
 
-        $attributes = $request->validate([
-            'paci'      => 'required_without:area',
-            'area'      => 'required_without:paci|alpha_num',
-            'location'  => 'alpha_num',
-            'is_active' => 'boolean',
-            'map'       => ''
-        ]);
-
-        $this->userLocation->create(optional(auth()->user())->id, $attributes);
+        $this->userLocation->create(optional(auth()->user())->id, $request->all());
 
         return redirect()->route('user.location');
     }

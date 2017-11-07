@@ -17,7 +17,7 @@ class UserPermission extends Model
     const LEVEL_SHOP_OWNER    = 2;
     const LEVEL_SHOP_OPERATOR = 3;
     
-    public function permission1()
+    public function permission()
     {
         return $this->belongsTo('App\Permission');
     }

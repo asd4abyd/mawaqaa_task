@@ -41,6 +41,8 @@ class UserLocation implements UserLocationInterface
     {
         $location = $this->location::where('user_id', $fields['user_id'])->findOrFail($id);
 
+        $fields['updated_at'] = time();
+
         $location->update($fields);
 
         return $location;

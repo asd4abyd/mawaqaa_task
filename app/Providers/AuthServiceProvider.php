@@ -33,7 +33,11 @@ class AuthServiceProvider extends ServiceProvider
             $permission = Permission::where(['title'=> $domain])->get();
 
             if(count($permission)==0){
-                Permission::insert(['title' => $domain]);
+
+                Permission::create([
+                    'title' => $domain
+                ]);
+
                 return false;
             }
 
@@ -43,8 +47,9 @@ class AuthServiceProvider extends ServiceProvider
 
             $user_permission = UserPermission::
             where('user_id', '=', $user->id)
-                ->join('permission', 'permission_id','=', 'id')
-                ->where('title', '=', $domain)
+                ->whereHas('permission', function($permission) use ($domain) {
+                    $permission->where('title', $domain);
+                })
                 ->get();
 
             return  count($user_permission)>0;
